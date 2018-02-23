@@ -28,7 +28,7 @@ public class ChangeColorTest {
   public void setup() {
     this.p = new Posn(0.0, 0.0);
     this.c = new Color(0.0, 0.0, 0.0);
-    this.r = new Rectangle(0, 1, "test", p, c, 2.4, 1.0);
+    this.r = new Rectangle(0, 100, "test", p, c, 2.4, 1.0);
     this.a = new ChangeColor(3, 5, r, c);
     this.valid = new ChangeColor(3, 5, r, new Color(1.0, 1.0, 1.0));
     this.invalid = new Move(3, 5, r, p);

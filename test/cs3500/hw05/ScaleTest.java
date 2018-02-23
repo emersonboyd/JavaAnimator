@@ -27,7 +27,7 @@ public class ScaleTest {
   public void setup() {
     this.p = new Posn(0.0, 0.0);
     this.c = new Color(0.0, 0.0, 0.0);
-    this.r = new Rectangle(0, 1, "test", p, c, 2.4, 1.0);
+    this.r = new Rectangle(0, 100, "test", p, c, 2.4, 1.0);
     this.s = new Scale(3, 5, r, 1.0, 1.5);
     this.valid = new Scale(3, 5, r, 2.0, 1.0);
     this.invalid = new Move(3, 5, r, p);

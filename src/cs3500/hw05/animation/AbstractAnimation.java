@@ -11,6 +11,10 @@ import cs3500.hw05.shape.AbstractShape;
 public abstract class AbstractAnimation extends AbstractCanvasObject {
   public static final String ERROR_NULL_SHAPE =
           "The shape cannot be null.";
+  public static final String ERROR_START_TOO_EARLY =
+          "The animation cannot start before the shape appears";
+  public static final String ERROR_START_TOO_LATE =
+          "The animation cannot start after the shape has disappeared";
   public static final String ERROR_NULL_ANIMATION =
           "The animation cannot be null.";
 
@@ -29,6 +33,14 @@ public abstract class AbstractAnimation extends AbstractCanvasObject {
 
     if (shape == null) {
       throw new IllegalArgumentException(ERROR_NULL_SHAPE);
+    }
+
+    if (this.getStartTime() < shape.getStartTime()) {
+      throw new IllegalArgumentException(ERROR_START_TOO_EARLY);
+    }
+
+    if (this.getStartTime() > shape.getEndTime()) {
+      throw new IllegalArgumentException(ERROR_START_TOO_LATE);
     }
 
     this.shape = shape;

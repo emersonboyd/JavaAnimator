@@ -21,7 +21,7 @@ public class AbstractAnimationTest {
   Color c;
   Rectangle r;
   Rectangle r2;
-
+  Rectangle r3;
   Scale s1;
   Scale s2;
   Scale s3;
@@ -37,8 +37,9 @@ public class AbstractAnimationTest {
   public void setup() {
     this.p = new Posn(0.0, 0.0);
     this.c = new Color(0.0, 0.0, 0.0);
-    this.r = new Rectangle(0, 1, "test", p, c, 2.4, 1.0);
-    this.r2 = new Rectangle(0, 1, "test", p, c, 2.4, 1.0);
+    this.r = new Rectangle(0, 100, "test", p, c, 2.4, 1.0);
+    this.r2 = new Rectangle(0, 100, "test", p, c, 2.4, 1.0);
+    this.r3 = new Rectangle(4, 6, "test", p, c, 2.4, 1.0);
     this.s1 = new Scale(3, 5, r, 1.0, 1.0);
     this.s2 = new Scale(4, 6, r, 1.0, 1.0);
     this.s3 = new Scale(5, 6, r, 1.0, 1.0);
@@ -57,6 +58,30 @@ public class AbstractAnimationTest {
     }
     catch (IllegalArgumentException e) {
       assertEquals(AbstractAnimation.ERROR_NULL_SHAPE, e.getMessage());
+    }
+  }
+
+  // Tests that the constructor throws an error when the animation start time is too early
+  @Test
+  public void testConstructorErrorStartTimeTooEarly() {
+    try {
+      new Scale(3, 5, r3, 1.0, 1.0);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals(AbstractAnimation.ERROR_START_TOO_EARLY, e.getMessage());
+    }
+  }
+
+  // Tests that the constructor throws an error when the animation start time is too late
+  @Test
+  public void testConstructorErrorStartTimeTooLate() {
+    try {
+      new Scale(7, 10, r3, 1.0, 1.0);
+      fail();
+    }
+    catch (IllegalArgumentException e) {
+      assertEquals(AbstractAnimation.ERROR_START_TOO_LATE, e.getMessage());
     }
   }
 

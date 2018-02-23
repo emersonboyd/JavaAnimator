@@ -27,7 +27,7 @@ public class MoveTest {
   public void setup() {
     this.p = new Posn(0.0, 0.0);
     this.c = new Color(0.0, 0.0, 0.0);
-    this.r = new Rectangle(0, 1, "test", p, c, 2.4, 1.0);
+    this.r = new Rectangle(0, 100, "test", p, c, 2.4, 1.0);
     this.m = new Move(3, 5, r, p);
     this.valid = new Move(3, 5, r, new Posn(100.0, 200.0));
     this.invalid = new Scale(3, 5, r, 1.90, 1.0);
