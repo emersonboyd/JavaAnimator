@@ -3,13 +3,13 @@ package cs3500.hw05;
 import org.junit.Before;
 import org.junit.Test;
 
-import cs3500.hw05.animation.AbstractAnimation;
-import cs3500.hw05.animation.ChangeColor;
-import cs3500.hw05.animation.Move;
-import cs3500.hw05.animation.Scale;
-import cs3500.hw05.shape.AbstractShape;
-import cs3500.hw05.shape.Oval;
-import cs3500.hw05.shape.Rectangle;
+import cs3500.hw05.animator.model.animation.AbstractAnimation;
+import cs3500.hw05.animator.model.animation.ChangeColor;
+import cs3500.hw05.animator.model.animation.Move;
+import cs3500.hw05.animator.model.animation.Scale;
+import cs3500.hw05.animator.model.shape.AbstractShape;
+import cs3500.hw05.animator.model.shape.Oval;
+import cs3500.hw05.animator.model.shape.Rectangle;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;

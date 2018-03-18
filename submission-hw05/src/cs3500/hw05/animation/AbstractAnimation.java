@@ -1,7 +1,7 @@
-package cs3500.hw05.animation;
+package cs3500.hw05.animator.model.animation;
 
 import cs3500.hw05.AbstractCanvasObject;
-import cs3500.hw05.shape.AbstractShape;
+import cs3500.hw05.animator.model.shape.AbstractShape;
 
 /**
  * Represents an abstract animation that can be placed in a canvas.

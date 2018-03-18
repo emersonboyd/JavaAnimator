@@ -1,7 +1,7 @@
-package cs3500.hw05.animation;
+package cs3500.hw05.animator.model.animation;
 
 import cs3500.hw05.Color;
-import cs3500.hw05.shape.AbstractShape;
+import cs3500.hw05.animator.model.shape.AbstractShape;
 
 /**
  * Represents a color change animation to alter an object's color to a target color.

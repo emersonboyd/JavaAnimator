@@ -1,3 +1,13 @@
+Changes since Homework 1:
+All source files were moved into the package cs3500.hw05.animator.model
+Some public fields in Oval.java were made private
+
+
+
+-------------------------------------
+
+
+
 Structure of Design:
 
 The majority of the classes are used for storing data rather than modifying data.

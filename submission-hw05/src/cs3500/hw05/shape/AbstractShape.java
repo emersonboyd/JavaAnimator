@@ -1,4 +1,4 @@
-package cs3500.hw05.shape;
+package cs3500.hw05.animator.model.shape;
 
 import java.util.Objects;
 

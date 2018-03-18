@@ -1,4 +1,4 @@
-package cs3500.hw05.shape;
+package cs3500.hw05.animator.model.shape;
 
 import cs3500.hw05.Color;
 import cs3500.hw05.Posn;

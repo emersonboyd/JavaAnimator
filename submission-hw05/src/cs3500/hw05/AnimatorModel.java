@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import cs3500.hw05.animation.AbstractAnimation;
-import cs3500.hw05.shape.AbstractShape;
+import cs3500.hw05.animator.model.animation.AbstractAnimation;
+import cs3500.hw05.animator.model.shape.AbstractShape;
 
 /**
  * Represents an implementation of the IAnimatorModel interface that contains a list of animations

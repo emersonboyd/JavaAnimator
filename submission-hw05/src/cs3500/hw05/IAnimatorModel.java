@@ -1,6 +1,6 @@
 package cs3500.hw05;
 
-import cs3500.hw05.animation.AbstractAnimation;
+import cs3500.hw05.animator.model.animation.AbstractAnimation;
 
 /**
  * Represents the operations that can be performed on a model that holds animations for use on
