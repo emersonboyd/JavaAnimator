@@ -1,0 +1,21 @@
+<svg width="10000" height="10000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<rect id="R" x="200" y="200" width="50" height="100" fill="rgb(255,0,0)" visibility="visible" >
+    <animate attributeType="xml" begin="600ms" dur="2500ms" attributeName="x" from="200.0" to="300.0" fill="freeze" />
+    <animate attributeType="xml" begin="600ms" dur="2500ms" attributeName="y" from="200.0" to="300.0" fill="freeze" />
+    <animate attributeType="xml" begin="3200ms" dur="1200ms" attributeName="width" from="50.0" to="25.0" fill="freeze" />
+    <animate attributeType="xml" begin="4400ms" dur="1900ms" attributeName="x" from="300.0" to="200.0" fill="freeze" />
+    <animate attributeType="xml" begin="4400ms" dur="1900ms" attributeName="y" from="300.0" to="200.0" fill="freeze" />
+</rect>
+<rect id="D" x="200" y="500" width="70" height="70" fill="rgb(0,255,0)" visibility="visible" >
+    <animateTransform attributeType="xml" begin="4438ms" dur="1188ms" attributeName="transform" type="rotate" from="90.0 235.0 535.0" to="230.0 235.0 535.0" repeatCount="1" fill="freeze" />
+    <animateTransform attributeType="xml" begin="1250ms" dur="3125ms" attributeName="transform" type="rotate" from="0.0 235.0 535.0" to="90.0 235.0 535.0" repeatCount="1" fill="freeze" />
+    <animate attributeType="xml" begin="1300ms" dur="3100ms" attributeName="" fill="freeze" />
+    <animate attributeType="xml" begin="4400ms" dur="1200ms" attributeName="" fill="freeze" />
+</rect>
+<ellipse id="C" cx="500" cy="100" rx="40" ry="60" fill="rgb(0,0,255)" visibility="visible" >
+    <animateTransform attributeType="xml" begin="2500ms" dur="3125ms" attributeName="transform" type="rotate" from="0.0 500.0 242.85714285714283" to="230.0 500.0 600.0" repeatCount="1" fill="freeze" />
+    <animate attributeType="xml" begin="1300ms" dur="4300ms" attributeName="cy" from="100.0" to="600.0" fill="freeze" />
+    <animate attributeType="xml" begin="2500ms" dur="3100ms" attributeName="" fill="freeze" />
+    <animate attributeType="xml" begin="3100ms" dur="1900ms" attributeName="fill" from="rgb(0,0,255)" to="rgb(0,255,0)" fill="freeze" />
+</ellipse>
+</svg>

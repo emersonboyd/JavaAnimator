@@ -1,4 +1,39 @@
-Changes since Homework 1:
+---------------------------------------
+
+What works and does not work for the provider's views:
+
+We got a fair amount of features working successfully in our code. Primarily, both their textual
+and svg views work as expected. In addition, their visual view and hybrid view compile and work for
+the most part by showing/hiding shapes at specified times and performing animations on those shapes.
+In the hybrid view, all of the buttons work as expected. All of the subset functionality works as
+expected: the user can play a subset of animations and export that subset of animations to an svg
+file, and they can export the entire animation to an svg file as well.
+
+The only part of the visual/hybrid view display that does not work is the ordering of
+shapes/animations being displayed to the screen. Sometimes, shapes that are supposed to appear on
+top end up beneath other shapes and vice versa. This is easily visible when viewing the
+visual/hybrid view with buildings.txt.
+
+
+--------------------------------------
+
+Changes since Homework 6:
+
+Shape classes were updated to have a reset() function to reset their fields to their original
+values. Additional fields were also added to these classes to store these original values.
+
+Also added a Map<AbstractShape, Integer> to the model to keep track of the order in which shapes
+should appear. This was necessary because we never kept track of when shapes should appear, so some
+shapes were hidden in our animations.
+
+In our model builder, we were only adding shapes to the model that had animations associated with
+them. This was a bug that we had to address, so in the model builder we made sure to add shapes
+without animations to the model.
+
+
+--------------------------------------
+
+Changes since Homework 5:
 
 All old source files were moved into the package cs3500.animator.model
 
@@ -81,3 +116,11 @@ This class creates the specific view depending on the input argument. It is the 
 VisualViewController:
 This is the controller for the animation. It processes the animations and updates the shapes accordingly. It tells the visual view what shapes to display.
 
+HybridView
+This is the view that contains the combined functionalities of the svg view and the visual view.
+
+HybridViewController:
+This is the controller for the hybrid view. It processes all of the button inputs and the text inputs.
+
+MockView:
+This is a mock view created to test the controller.

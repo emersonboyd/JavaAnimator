@@ -5,8 +5,9 @@ import java.util.List;
 
 import javax.swing.JFrame;
 
-import cs3500.animator.model.animation.AbstractAnimation;
-import cs3500.animator.model.shape.AbstractShape;
+import cs3500.animator.controller.IVisualController;
+import cs3500.animator.object.animation.IAnimation;
+import cs3500.animator.object.shape.IShape;
 
 /**
  * This class represents a general view that has a tempo in ticks per second. The tempo
@@ -16,8 +17,8 @@ public abstract class AbstractView extends JFrame implements IView {
 
   protected static final int PANEL_WIDTH = 500;
   protected static final int PANEL_HEIGHT = 500;
-  protected List<AbstractAnimation> animations;
-  protected List<AbstractShape> shapes;
+  protected List<IAnimation> animations;
+  protected List<IShape> shapes;
   protected double tempo;
 
   /**
@@ -26,7 +27,7 @@ public abstract class AbstractView extends JFrame implements IView {
    *                   @param shapes the shapes associated with this view
    * @param tempo the speed of the animation in ticks per second
    */
-  AbstractView(List<AbstractAnimation> animations, List<AbstractShape> shapes, double tempo) {
+  AbstractView(List<IAnimation> animations, List<IShape> shapes, double tempo) {
     this.animations = animations;
     this.shapes = shapes;
     this.tempo = tempo;
@@ -45,6 +46,11 @@ public abstract class AbstractView extends JFrame implements IView {
   @Override
   public void animate() {
     return;
+  }
+
+  @Override
+  public void setController(IVisualController controller) {
+    throw new UnsupportedOperationException("This view does not need a controller.");
   }
 
   @Override

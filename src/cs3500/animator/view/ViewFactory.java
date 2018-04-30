@@ -6,7 +6,7 @@ public class ViewFactory {
   public static final String ERROR_INVALID_VIEWTYPE
           = "Inputted view type is not a valid view type.";
   public static final String ERROR_NULL_MODEL = "Inputted model cannot be null.";
-  public static final String ERROR_INVALID_TEMPO = "Inputted tempo must be a positive real number.";
+  public static final String ERROR_INVALID_TEMPO = "Inputted tempo must be at least 1.";
 
   /**
    * Produces an instance of an IView specific to the information provided by the user.
@@ -26,7 +26,7 @@ public class ViewFactory {
       throw new IllegalArgumentException(ERROR_NULL_MODEL);
     }
 
-    if (tempo <= 0) {
+    if (tempo < 1) {
       throw new IllegalArgumentException(ERROR_INVALID_TEMPO);
     }
 
@@ -34,13 +34,16 @@ public class ViewFactory {
       throw new IllegalArgumentException(ERROR_INVALID_VIEWTYPE);
     }
     else if (viewType.equalsIgnoreCase("text")) {
-      view = new TextualView(model.getAnimations(), tempo, out);
+      view = new TextualView(model.getAnimations(), model.getShapes(), tempo, out);
     }
     else if (viewType.equalsIgnoreCase("visual")) {
-      view = new VisualView(model.getAnimations(), model.getShapes(), tempo);
+      view = new VisualView(model.getAnimations(), model.getShapes(), model.getShapeOrder(), tempo);
     }
     else if (viewType.equalsIgnoreCase("svg")) {
-      view = new SVGView(model.getAnimations(), tempo, out);
+      view = new SVGView(model.getAnimations(), model.getShapes(), tempo, out);
+    }
+    else if (viewType.equalsIgnoreCase("hybrid")) {
+      view = new HybridView(model.getAnimations(), model.getShapes(), model.getShapeOrder(), tempo);
     }
     else {
       throw new IllegalArgumentException(ERROR_INVALID_VIEWTYPE);
@@ -48,5 +51,4 @@ public class ViewFactory {
 
     return view;
   }
-
 }

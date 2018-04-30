@@ -89,14 +89,23 @@ public class AnimationFileReader {
                   scaleByInfo.getStart(),
                   scaleByInfo.getEnd());
           break;
+        case "rotate":
+          RotateByInfo rotateByInfo = readRotateByInfo(sc);
+          builder.addRotation(rotateByInfo.name, rotateByInfo.getFromTheta(),
+                  rotateByInfo.getToTheta(), rotateByInfo.getStart(), rotateByInfo.getEnd());
+          break;
+        case "layer":
+          LayerByInfo layerByInfo = readLayerByInfo(sc);
+          builder.setCurrentLayer(layerByInfo.getLayer());
+          break;
         default:
           throw new IllegalStateException("Unidentified token " + command + " "
                   + "read from file");
-
       }
     }
     return builder.build();
   }
+
 
   private RectangleInfo readRectangleInfo(Scanner sc) throws
           IllegalStateException, InputMismatchException {
@@ -275,6 +284,54 @@ public class AnimationFileReader {
     }
 
     return info;
+  }
+
+  private RotateByInfo readRotateByInfo(Scanner sc) throws
+          IllegalStateException, InputMismatchException {
+    RotateByInfo info = new RotateByInfo();
+
+    while (!info.isAllInitialized()) {
+      String command = sc.next();
+      switch (command) {
+        case "rotateto":
+          info.setFromTheta(sc.nextFloat());
+          info.setToTheta(sc.nextFloat());
+          break;
+        case "name":
+          info.setName(sc.next());
+          break;
+        case "from":
+          info.setStart(sc.nextInt());
+          break;
+        case "to":
+          info.setEnd(sc.nextInt());
+          break;
+        default:
+          throw new IllegalStateException("Invalid attribute " + command + " for "
+                  + "rotate-to");
+      }
+    }
+
+    return info; // returns info
+  }
+
+  private LayerByInfo readLayerByInfo(Scanner sc) throws
+          IllegalStateException, InputMismatchException {
+    LayerByInfo info = new LayerByInfo();
+
+    while (!info.isAllInitialized()) {
+      String command = sc.next();
+      switch (command) {
+        case "num":
+          info.setLayer(sc.nextInt());
+          break;
+        default:
+          throw new IllegalStateException("Invalid attribute " + command + " for "
+                  + "layer");
+      }
+    }
+
+    return info; // returns info
   }
 
 
@@ -762,5 +819,91 @@ public class AnimationFileReader {
     int getEnd() {
       return end;
     }
+  }
+
+  class RotateByInfo extends Inputable {
+    private String name;
+    private float fromTheta;
+    private float toTheta;
+    private int start;
+    private int end;
+
+    RotateByInfo() {
+      super();
+
+      valueFlags.put("name", false);
+      valueFlags.put("fromtheta", false);
+      valueFlags.put("totheta", false);
+      valueFlags.put("start", false);
+      valueFlags.put("end", false);
+
+    }
+
+    void setName(String name) {
+      this.name = name;
+      valueFlags.replace("name", true);
+    }
+
+    void setFromTheta(float theta) {
+      this.fromTheta = theta;
+      valueFlags.replace("fromtheta", true);
+    }
+
+    void setToTheta(float theta) {
+      this.toTheta = theta;
+      valueFlags.replace("totheta", true);
+    }
+
+
+    void setStart(int start) {
+      this.start = start;
+      valueFlags.replace("start", true);
+    }
+
+    void setEnd(int end) {
+      this.end = end;
+      valueFlags.replace("end", true);
+    }
+
+    String getName() {
+      return name;
+    }
+
+    float getFromTheta() {
+      return fromTheta;
+    }
+
+    float getToTheta() {
+      return toTheta;
+    }
+
+    int getStart() {
+      return start;
+    }
+
+    int getEnd() {
+      return end;
+    }
+  }
+
+  class LayerByInfo extends Inputable {
+    private int layer;
+
+    LayerByInfo() {
+      super();
+
+      valueFlags.put("layer", false);
+
+    }
+
+    void setLayer(int layer) {
+      this.layer = layer;
+      valueFlags.replace("layer", true);
+    }
+
+    int getLayer() {
+      return layer;
+    }
+
   }
 }

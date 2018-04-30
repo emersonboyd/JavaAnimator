@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import cs3500.animator.model.animation.AbstractAnimation;
-import cs3500.animator.model.shape.AbstractShape;
+import cs3500.animator.object.animation.IAnimation;
+import cs3500.animator.object.shape.IShape;
 
 /**
  * This class represents a textual implementation of a view that can print out a string
@@ -19,33 +19,34 @@ public class TextualView extends AbstractView {
   /**
    * Constructs a TextualView with the given animations.
    * @param animations the animations associated with this view
+   * @param shapes the shapes associated with this view
    * @param tempo the speed of the animation in ticks per second
    * @param out the appendable object that the animation gets added to
    */
-  public TextualView(List<AbstractAnimation> animations, double tempo, Appendable out) {
-    super(animations, null, tempo);
+  public TextualView(List<IAnimation> animations, List<IShape> shapes, double tempo, Appendable out) {
+    super(animations, shapes, tempo);
     this.out = out;
   }
 
   @Override
   public String getAnimatorDescription() {
     Collections.sort(animations);
-    List<AbstractShape> shapeCopies = getShapeCopies();
+    List<IShape> shapeCopies = getShapeCopies();
 
     StringBuilder builder = new StringBuilder();
     builder.append("Shapes:");
 
-    for (AbstractShape shape : shapeCopies) {
+    for (IShape shape : shapeCopies) {
       builder.append("\n")
               .append(shape.toString())
               .append("\n");
     }
 
-    for (AbstractAnimation animation : animations) {
-      AbstractShape animationShape = animation.getShape();
-      AbstractShape animationShapeCopy = null;
+    for (IAnimation animation : animations) {
+      IShape animationShape = animation.getShape();
+      IShape animationShapeCopy = null;
 
-      for (AbstractShape shapeCopy : shapeCopies) {
+      for (IShape shapeCopy : shapeCopies) {
         if (animationShape.getName().equals(shapeCopy.getName())) {
           animationShapeCopy = shapeCopy;
         }
@@ -99,12 +100,12 @@ public class TextualView extends AbstractView {
    *
    * @return a sorted list of copied shapes
    */
-  private List<AbstractShape> getShapeCopies() {
-    List<AbstractShape> newShapes = new ArrayList<AbstractShape>();
-    List<AbstractShape> shapesTracker = new ArrayList<AbstractShape>();
+  private List<IShape> getShapeCopies() {
+    List<IShape> newShapes = new ArrayList<IShape>();
+    List<IShape> shapesTracker = new ArrayList<IShape>();
 
-    for (AbstractAnimation animation : animations) {
-      AbstractShape tempShape = animation.getShape();
+    for (IAnimation animation : animations) {
+      IShape tempShape = animation.getShape();
 
       if (!shapesTracker.contains(tempShape)) {
         newShapes.add(tempShape.clone());
@@ -116,7 +117,4 @@ public class TextualView extends AbstractView {
 
     return newShapes;
   }
-
-
-
 }

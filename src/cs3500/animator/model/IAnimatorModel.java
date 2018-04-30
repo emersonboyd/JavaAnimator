@@ -1,9 +1,10 @@
 package cs3500.animator.model;
 
 import java.util.List;
+import java.util.Map;
 
-import cs3500.animator.model.animation.AbstractAnimation;
-import cs3500.animator.model.shape.AbstractShape;
+import cs3500.animator.object.animation.IAnimation;
+import cs3500.animator.object.shape.IShape;
 
 /**
  * Represents the operations that can be performed on a model that holds animations for use on
@@ -21,7 +22,7 @@ public interface IAnimatorModel {
    * @throws IllegalArgumentException if an animation is added that conflicts with existing
    *                                  animations
    */
-  void addAnimation(AbstractAnimation anim) throws IllegalArgumentException;
+  void addAnimation(IAnimation anim) throws IllegalArgumentException;
 
   /**
    * Produces a String representing all of the shapes and animations held by the model.
@@ -35,12 +36,49 @@ public interface IAnimatorModel {
    *
    * @return the list of animation copies
    */
-  List<AbstractAnimation> getAnimations();
+  List<IAnimation> getAnimations();
 
   /**
    * Produces a copy of each shape held by the model.
    *
    * @return the list of abstract shape copies
    */
-  List<AbstractShape> getShapes();
+  List<IShape> getShapes();
+
+  /**
+   * Sets the order mapping in which the shapes should appear.
+   * @param shapeOrder the order mapping in which the shapes should appear
+   */
+  void setShapeOrder(Map<IShape, Integer> shapeOrder);
+
+  /**
+   * Produces a copy of the shape order mapping.
+   *
+   * @return the shape order mapping copy
+   */
+  Map<IShape, Integer> getShapeOrder();
+
+  /**
+   * Removes a shape in the model by the index.
+   * @param shapeIndex index of the shape to be removed
+   */
+  void removeShapeByIndex(int shapeIndex);
+
+  /**
+   * Removes an animation in the model by the index.
+   * @param animationIndex index of the animation to be removed
+   */
+  void removeAnimationByIndex(int animationIndex);
+
+  /**
+   * Adds a shape to the model if it is not already in the model.
+   * @param newShape the shape to add to the model
+   */
+  void addShape(IShape newShape);
+
+  /**
+   * Removes all animations associated with the given shape name.
+   * @param name the name of the shape to remove the animations of
+   */
+  void removeAnimationByShapeName(String name);
 }

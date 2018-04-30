@@ -1,0 +1,29 @@
+layer num 1
+rectangle name R min-x 200 min-y 200 width 50 height 100 color 1
+0 0 from 1 to 100
+layer num 2
+oval name C center-x 500 center-y 100 x-radius 40 y-radius 60 color 0 0 1
+from 6 to 100
+layer num 3
+oval name F center-x 200 center-y 500 x-radius 60 y-radius 20 color 0 1 0
+from 1 to 100
+layer num 1
+rectangle name D min-x 200 min-y 500 width 70 height 70 color 1 0 0
+from 1 to 100
+layer num 2
+rectangle name E min-x 500 min-y 500 width 40 height 80 color 0 0 1
+from 1 to 100
+layer num 3
+oval name G center-x 500 center-y 200 x-radius 30 y-radius 30 color 0 1 0
+from 1 to 100
+move name R moveto 200 200 300 300 from 10 to 50
+move name C moveto 500 100 500 500 from 20 to 70
+move name R moveto 300 300 200 200 from 70 to 100
+scale name R scaleto 50 100 25 100 from 51 to 70
+rotate name D rotateto 0 90 from 20 to 70
+rotate name D rotateto 90 230 from 71 to 90
+rotate name C rotateto 0 290 from 20 to 70
+move name E moveto 500 500 200 200 from 30 to 80
+move name D moveto 200 500 500 500 from 30 to 90
+move name F moveto 200 500 500 200 from 30 to 80
+move name G moveto 500 200 200 500 from 30 to 90

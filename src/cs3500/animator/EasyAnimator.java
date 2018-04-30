@@ -4,16 +4,21 @@ import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-
+import cs3500.animator.controller.HybridViewController;
+import cs3500.animator.controller.IInteractiveController;
+import cs3500.animator.controller.IVisualController;
+import cs3500.animator.controller.VisualViewController;
 import cs3500.animator.model.AnimatorModel;
 import cs3500.animator.model.IAnimatorModel;
 import cs3500.animator.util.AnimationFileReader;
+import cs3500.animator.view.IInteractiveView;
 import cs3500.animator.view.IView;
 import cs3500.animator.view.ViewFactory;
 
 public final class EasyAnimator {
   /**
    * Main method to run the program.
+   *
    * @param args the list of command line arguments
    * @throws IOException if the file cannot be made
    */
@@ -22,7 +27,9 @@ public final class EasyAnimator {
     String fileName = null;
     String viewType = null;
     Double tempo = 1.0;
+    String outputFileName = "outputFiles/out.txt";
     Appendable out = System.out;
+    String providerName = null;
     AnimationFileReader fileReader = new AnimationFileReader();
 
 
@@ -42,7 +49,7 @@ public final class EasyAnimator {
           if (args[i + 1].equals("out")) {
             break;
           }
-          String outputFileName = "outputFiles/" + args[i + 1];
+          outputFileName = "outputFiles/" + args[i + 1];
           out = new BufferedWriter(new FileWriter(outputFileName));
           break;
         case "-speed":
@@ -58,12 +65,21 @@ public final class EasyAnimator {
     }
 
     IAnimatorModel model = fileReader.readFile(fileName, new AnimatorModel.Builder());
-
     IView view = ViewFactory.create(viewType, model, tempo, out);
-    view.writeAnimatorDescription();
+    if (viewType.equals("visual")) {
+      IVisualController controller = new VisualViewController(view, model.getAnimations(),
+              model.getShapes(), model.getShapeOrder(), tempo);
+      view.setController(controller);
+    } else if (viewType.equals("hybrid")) {
+      IInteractiveController controller = new HybridViewController((IInteractiveView) view,
+              model.getAnimations(), model.getShapes(), model.getShapeOrder(), tempo);
+      ((IInteractiveView) view).setController(controller);
+    }
 
+    view.writeAnimatorDescription();
     if (out instanceof Writer) {
       ((Writer) out).close();
     }
   }
 }
+

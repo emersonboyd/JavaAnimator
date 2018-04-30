@@ -1,0 +1,7 @@
+<svg width="10000" height="10000" version="1.1" xmlns="http://www.w3.org/2000/svg">
+<ellipse id="C" cx="500" cy="100" rx="40" ry="60" fill="rgb(0,0,255)" visibility="visible" >
+    <animateTransform attributeType="xml" begin="600ms" dur="400ms" attributeName="transform" type="rotate" from="0.0 500.0 300.0" to="290.0 500.0 500.0" repeatCount="1" fill="freeze" />
+    <animate attributeType="xml" begin="200ms" dur="800ms" attributeName="cy" from="100.0" to="500.0" fill="freeze" />
+    <animate attributeType="xml" begin="600ms" dur="400ms" attributeName="" fill="freeze" />
+</ellipse>
+</svg>

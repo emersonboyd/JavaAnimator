@@ -3,12 +3,15 @@ package cs3500.animator.controller;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.Timer;
 
-import cs3500.animator.model.animation.AbstractAnimation;
-import cs3500.animator.model.shape.AbstractShape;
+import cs3500.animator.object.animation.IAnimation;
+import cs3500.animator.object.shape.IShape;
 import cs3500.animator.view.IView;
 
 /**
@@ -18,13 +21,14 @@ import cs3500.animator.view.IView;
  */
 public class VisualViewController implements IVisualController, ActionListener {
   private IView view;
-  private List<AbstractAnimation> animations;
-  private List<AbstractShape> shapes;
+  private List<IAnimation> animations;
+  private List<IShape> shapes;
+  private Map<IShape, Integer> shapeOrder;
   private double tempo;
   private Timer timer;
   private long startTime;
 
-  private List<AbstractShape> visibleShapes;
+  private List<IShape> visibleShapes;
 
   /**
    * Constructs a VisualViewController with the given animations to be processed.
@@ -34,13 +38,15 @@ public class VisualViewController implements IVisualController, ActionListener {
    * @param shapes the shapes associated with the view
    * @param tempo the speed of the animation in ticks per second
    */
-  public VisualViewController(IView view, List<AbstractAnimation> animations,
-                              List<AbstractShape> shapes, double tempo) {
+  public VisualViewController(IView view, List<IAnimation> animations,
+                              List<IShape> shapes, Map<IShape, Integer> shapeOrder,
+                              double tempo) {
     this.view = view;
     this.animations = animations;
     this.shapes = shapes;
+    this.shapeOrder = shapeOrder;
     this.tempo = tempo;
-    this.timer = new Timer(5, this);
+    this.timer = new Timer(1, this);
 
     this.visibleShapes = new ArrayList<>();
   }
@@ -52,7 +58,7 @@ public class VisualViewController implements IVisualController, ActionListener {
   }
 
   @Override
-  public List<AbstractShape> getVisibleShapes() {
+  public List<IShape> getVisibleShapes() {
     return this.visibleShapes;
   }
 
@@ -61,8 +67,8 @@ public class VisualViewController implements IVisualController, ActionListener {
     double secondsElapsed = (System.nanoTime() - this.startTime) / 1000000000.0;
     int ticksElapsed = (int) (secondsElapsed * this.tempo);
     updateVisibleShapes(ticksElapsed);
-    for (AbstractAnimation animation : this.animations) {
-      if (ticksElapsed >= animation.getStartTime() && ticksElapsed < animation.getEndTime()) {
+    for (IAnimation animation : this.animations) {
+      if (ticksElapsed >= animation.getStartTime() && ticksElapsed <= animation.getEndTime()) {
         animation.animate(ticksElapsed);
       }
     }
@@ -75,14 +81,21 @@ public class VisualViewController implements IVisualController, ActionListener {
    * @param ticksElapsed the total amount of ticks elapsed in the animation
    */
   private void updateVisibleShapes(int ticksElapsed) {
-    for (AbstractShape shape : this.shapes) {
+    for (IShape shape : this.shapes) {
       if (ticksElapsed >= shape.getStartTime() && ticksElapsed < shape.getEndTime()
               && !visibleShapes.contains(shape)) {
-        visibleShapes.add(shape);
+        visibleShapes.add(0, shape);
       }
       else if (ticksElapsed >= shape.getEndTime()) {
         visibleShapes.remove(shape);
       }
     }
+
+    Collections.sort(visibleShapes, new Comparator<IShape>() {
+      @Override
+      public int compare(IShape o1, IShape o2) {
+        return shapeOrder.get(o1) - shapeOrder.get(o2);
+      }
+    });
   }
 }

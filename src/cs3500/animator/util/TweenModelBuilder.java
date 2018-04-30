@@ -103,10 +103,29 @@ public interface TweenModelBuilder<T> {
           fromSy, float toSx, float toSy, int startTime, int endTime);
 
   /**
+   * Adds a rotation to the model.
+   * @param name name of the shape
+   * @param fromTheta starting theta
+   * @param toTheta ending theta
+   * @param startTime starting time
+   * @param endTime ending time
+   * @return a model builder
+   */
+  TweenModelBuilder<T> addRotation(String name, float fromTheta, float toTheta,
+                                   int startTime, int endTime);
+
+  /**
+   * Sets the builder's current layer. Any shape added to the builder should be maintained under
+   * the current layer.
+   * @param layer the layer being set
+   * @return a model builder
+   */
+  TweenModelBuilder<T> setCurrentLayer(int layer);
+
+  /**
    * Return the model built so far.
    *
    * @return the model that was constructed so far
    */
   T build();
-
 }

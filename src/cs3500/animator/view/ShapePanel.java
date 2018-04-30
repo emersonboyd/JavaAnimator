@@ -1,14 +1,12 @@
 package cs3500.animator.view;
 
-import java.awt.Graphics;
-
+import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.List;
 
-import javax.swing.JPanel;
+import javax.swing.*;
 
-import cs3500.animator.model.shape.AbstractShape;
-import cs3500.animator.model.shape.Oval;
-import cs3500.animator.model.shape.Rectangle;
+import cs3500.animator.object.shape.IShape;
 import cs3500.animator.util.NumUtil;
 
 /**
@@ -17,42 +15,52 @@ import cs3500.animator.util.NumUtil;
  */
 public class ShapePanel extends JPanel {
 
-  private List<AbstractShape> listOfShapes;
+  private List<IShape> listOfShapes;
 
   /**
    * Constructs a panel for the animation of shapes.
    * @param listOfShapes the list of shapes to be drawn
    */
-  ShapePanel(List<AbstractShape> listOfShapes) {
+  ShapePanel(List<IShape> listOfShapes) {
     this.listOfShapes = listOfShapes;
   }
 
   @Override
   protected void paintComponent(Graphics g) {
+    Graphics2D g2D = (Graphics2D) g;
     super.paintComponent(g);
 
-    for (AbstractShape shape : listOfShapes) {
-      int x = (int) shape.getLocation().getX();
-      int y = (int) shape.getLocation().getY();
-      g.setColor(shape.getColor().transformToAwt());
+    for (IShape shape : listOfShapes) {
+      int minX = (int) shape.getLocation().getX();
+      int minY = (int) shape.getLocation().getY();
+      g2D.setColor(shape.getColor().transformToAwt());
 
-      if (shape instanceof Rectangle) {
-        Rectangle rect = (Rectangle) shape;
-        g.draw3DRect(x, y, NumUtil.round(rect.getWidth()), NumUtil.round(rect.getHeight()), true);
-        g.fill3DRect(x, y, NumUtil.round(rect.getWidth()), NumUtil.round(rect.getHeight()), true);
+      if (shape.getType().equalsIgnoreCase("rectangle")) {
+        int centerX = minX + NumUtil.round(shape.getSizeX() / 2);
+        int centerY = minY + NumUtil.round(shape.getSizeY() / 2);
+        AffineTransform rot = AffineTransform.getRotateInstance(Math.toRadians(shape.getTheta()),
+                centerX, centerY);
+        g2D.setTransform(rot);
+
+        g2D.draw3DRect(minX, minY, NumUtil.round(shape.getSizeX()), NumUtil.round(shape.getSizeY()), true);
+        g2D.fill3DRect(minX, minY, NumUtil.round(shape.getSizeX()), NumUtil.round(shape.getSizeY()), true);
       }
-      else  if (shape instanceof Oval) {
-        Oval oval = (Oval) shape;
+      else  if (shape.getType().equalsIgnoreCase("oval")) {
+        int roundedRadiusX = NumUtil.round(shape.getSizeX());
+        int roundedRadiusY = NumUtil.round(shape.getSizeY());
+        int roundedWidth = NumUtil.round(shape.getSizeX() * 2);
+        int roundedHeight = NumUtil.round(shape.getSizeY() * 2);
+        minX = minX - roundedRadiusX;
+        minY = minY - roundedRadiusY;
 
-        int roundedRadiusX = NumUtil.round(oval.getRadiusX());
-        int roundedRadiusY = NumUtil.round(oval.getRadiusY());
-        int roundedWidth = NumUtil.round(oval.getRadiusX() * 2);
-        int roundedHeight = NumUtil.round(oval.getRadiusY() * 2);
-        x = x - roundedRadiusX;
-        y = y - roundedRadiusY;
+        int centerX = (int) shape.getLocation().getX();
+        int centerY = (int) shape.getLocation().getY();
+        AffineTransform rot = AffineTransform.getRotateInstance(Math.toRadians(shape.getTheta()),
+                centerX, centerY);
+        g2D.setTransform(rot);
 
-        g.drawOval(x, y, roundedWidth, roundedHeight);
-        g.fillOval(x, y, roundedWidth, roundedHeight);
+        g2D.drawOval(minX, minY, roundedWidth, roundedHeight);
+        g2D.fillOval(minX, minY, roundedWidth, roundedHeight);
       }
     }
   }
